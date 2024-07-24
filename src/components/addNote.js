@@ -12,9 +12,7 @@ const AddNote = () => {
   const handleClick = (e) => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
-    setNote( {title: "",
-      description: "",
-      tag: "default"})
+    setNote({ title: "", description: "", tag: "default" });
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -32,15 +30,16 @@ const AddNote = () => {
             className="form-control"
             id="title"
             name="title"
-            value = {note.title}
+            value={note.title}
             onChange={onChange}
             minLength={5}
             required
+            placeholder="Title..."
           />
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
-            Description
+            Take a Note...
           </label>
           <input
             type="text"
@@ -51,14 +50,20 @@ const AddNote = () => {
             onChange={onChange}
             minLength={5}
             required
+            placeholder="Take a Note..."
           />
         </div>
-        <button disabled={note.title.length<5||note.description.length<5} type="submit" className="btn btn-primary" onClick={handleClick}>
+        <button
+          disabled={note.title.length < 5 || note.description.length < 5}
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleClick}
+        >
           Add Note
         </button>
-        {/* <button className="btn btn-primary float-end" onclick="window.location.href='/about';">
+        <button className="btn btn-primary float-end" onclick="window.location.href='/about';">
           View Notes  <i className="fa-solid fa-circle-arrow-right"></i>
-        </button> */}
+        </button>
       </form>
     </div>
   );

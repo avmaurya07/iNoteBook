@@ -1,5 +1,4 @@
 import React from 'react';
-// hello
 const About = () => {
   return (
     <>

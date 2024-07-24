@@ -75,11 +75,12 @@ const Notelist = () => {
                     value={note.etitle}
                     minLength={5}
                     required
+                    placeholder="Title..."
                   />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
-                    Description
+                  Take a Note...
                   </label>
                   <input
                     type="text"
@@ -90,6 +91,7 @@ const Notelist = () => {
                     value={note.edescription}
                     minLength={5}
                     required
+                    placeholder="Take a Note..."
                   />
                 </div>
 

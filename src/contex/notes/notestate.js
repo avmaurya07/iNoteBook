@@ -2,7 +2,7 @@ import { useState } from "react";
 import NoteContext from "./notecontext";
 const host = "http://localhost:5000";
 const auth =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZhMTBhZDhjNGEwN2I3ODJiOTU5M2UxIn0sImlhdCI6MTcyMTgzMDE5Mn0.m3OlgNu34SKy4ZsCrThzPkde9rvEMfdnU9wBMU8SISU";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZhMTI5YTliNGUzNzkzNWExOTM0Y2JiIn0sImlhdCI6MTcyMTgzNzk5M30.ag3hMjrwO3_6mvAc3ljcqKgZ8Y8X_AtAj76o4iUM0cQ";
 
 const NoteState = (props) => {
   const [Notes, setNotes] = useState([]);
