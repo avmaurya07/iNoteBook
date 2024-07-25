@@ -16,7 +16,7 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://10.80.63.66:5000/api/auth/login", {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
