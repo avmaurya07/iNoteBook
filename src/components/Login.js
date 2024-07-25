@@ -1,26 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import NoteContext from "../contex/notes/notecontext";
 
 const Login = () => {
+  const ref = useRef(null);
   const context = useContext(NoteContext);
-  const { User } = context;
+  const { getUserApi } = context;
   const [ldata, setLdata] = useState({ email: "", pass: "" });
   let navigate = useNavigate();
   const onChange = (e) => {
     setLdata({ ...ldata, [e.target.name]: e.target.value });
   };
-
-
-  
-  useEffect(() => {
-    if (User.name) {
-      navigate("/");
-    }
-   
-  });
-
-
+  const onSignUp = () => {
+    ref.current.click();
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -31,54 +24,106 @@ const Login = () => {
       body: JSON.stringify({ email: ldata.email, password: ldata.pass }),
     });
     const json = await response.json();
+    getUserApi();
     setLdata({ email: "", pass: "" });
     if (json.success) {
       //save the token on local storage and redirect
       localStorage.setItem("token", json.authtoken);
-      console.log(json.authtoken);
       navigate("/");
     } else {
       alert(json.msg);
     }
   };
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            onChange={onChange}
-            value={ldata.email}
-          />
+    <>
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label html htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              onChange={onChange}
+              value={ldata.email}
+            />
+          </div>
+          <div className="mb-3">
+            <label html htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="pass"
+              name="pass"
+              onChange={onChange}
+              value={ldata.pass}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={ldata.email.length < 5 || ldata.pass.length < 5}
+          >
+            Login
+          </button>
+        </form>
+        <div class="form-check">
+          {/* <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+  <label className="form-check-label" htmlFor="flexCheckDefault">
+    Default checkbox
+  </label> */}
         </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="pass"
-            name="pass"
-            onChange={onChange}
-            value={ldata.pass}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
-        <a className="btn btn-primary mx-3" href="/" role="button">
-          SignUp
-        </a>
-      </form>
-    </div>
+      </div>
+
+      {/* <button
+        type="button"
+        className="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >SignUp</button>
+       */}
+      {/* <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel" ref={ref}>
+                Register Yourself
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">...</div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" className="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div> */}
+      {/* </div> */}
+    </>
   );
 };
-
 export default Login;

@@ -78,13 +78,13 @@ router.post(
       let user = await User.findOne({ email });
       //if user does not exist
       if (!user) {
-        return res.status(400).json({success:success, msg: "invalid email/password" });
+        return res.status(400).json({success:success, msg: "Invalid email/password" });
       }
       //to compare entered password with the database
       const passwordCompare = await bcrypt.compare(password, user.password);
       //if password is wrong
       if (!passwordCompare) {
-        return res.status(400).json({success:success, msg: "invalid email/password" });
+        return res.status(400).json({success:success, msg: "Invalid email/password" });
       }
       //for creating a auth token
       const data = {

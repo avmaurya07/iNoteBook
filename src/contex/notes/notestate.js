@@ -2,10 +2,11 @@ import { useState } from "react";
 import NoteContext from "./notecontext";
 // const config = require("../../config");
 const host = "http://localhost:5000";
+// const auth =""
 const auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZhMTBhZDhjNGEwN2I3ODJiOTU5M2UxIn0sImlhdCI6MTcyMTg5NzYxN30.PJo__-4RH2Hq-a786doqfydOsT12KL41sNAQJ6VC4_s";
 const NoteState = (props) => {
   const [Notes, setNotes] = useState([]);
-  const [User, setUser] = useState([]);
+  const [User, setUser] = useState([{name:"",email:""}]);
 
   //api call to add note
   const addNotesApi = async (title, description, tag) => {

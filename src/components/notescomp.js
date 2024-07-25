@@ -3,17 +3,12 @@ import AddNote from "./addNote";
 import Notelist from "./notelist";
 
 const NoteComp = () => {
-  
-
-
-  
   return (
     <>
-    <AddNote/>
-    <hr/><br/>
-    <Notelist/>
-    
-      
+      <AddNote />
+      <hr />
+      <br />
+      <Notelist />
     </>
   );
 };

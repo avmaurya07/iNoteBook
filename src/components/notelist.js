@@ -4,14 +4,12 @@ import Noteitem from "./noteitem";
 
 const Notelist = () => {
   const context = useContext(NoteContext);
-  const {User, Notes, getNotesApi, editNote } = context;
+  const { User, Notes, getNotesApi, editNote,getUserApi } = context;
   const [note, setNote] = useState({ eid: "", etitle: "", edescription: "" });
-  // useEffect(() => {
-  //   if(User.name){
-  //   getNotesApi();
-  //   }
-    
-  // })
+  useEffect(() => {
+      getNotesApi();
+      getUserApi();
+  }, []);
 
   const updateNote = (cnote) => {
     ref.current.click();
@@ -82,7 +80,7 @@ const Notelist = () => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
-                  Take a Note...
+                    Take a Note...
                   </label>
                   <input
                     type="text"
@@ -110,7 +108,9 @@ const Notelist = () => {
                     type="button"
                     className="btn btn-primary"
                     data-bs-dismiss="modal"
-                    disabled={note.etitle.length<5 || note.edescription.length<5}
+                    disabled={
+                      note.etitle.length < 5 || note.edescription.length < 5
+                    }
                   >
                     Update Note
                   </button>
@@ -121,7 +121,7 @@ const Notelist = () => {
         </div>
       </div>
 
-      {(Notes.length !== 0 || User.name ) && (
+      {(Notes.length !== 0 || User.name) && (
         <div className="row my-3">
           <h2>Your Notes</h2>
           {Notes.map((notes) => {

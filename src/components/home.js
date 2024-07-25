@@ -6,14 +6,11 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   let navigate = useNavigate();
   const context = useContext(NoteContext);
-  const { User ,getUserApi} = context;
-  useEffect(() => {
-    // eslint-disable-next-line
-    async function imp(){await getUserApi();
-    if (!User.name) {
-      navigate("/login");}
-    }
-  });
+  const { User} = context;
+  // useEffect(() => {
+  //   if (!User.name) {
+  //     navigate("/login");}
+  // },[]);
   return (
     <>
       <NoteComp />
