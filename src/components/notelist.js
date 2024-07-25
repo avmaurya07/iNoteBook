@@ -121,7 +121,7 @@ const Notelist = () => {
         </div>
       </div>
 
-      {(Notes.length !== 0 || User.name) && (
+      {(Notes.length !== 0 && User.name) && (
         <div className="row my-3">
           <h2>Your Notes</h2>
           {Notes.map((notes) => {

@@ -9,7 +9,7 @@ const Signup = () => {
     const [sdata, setSdata] = useState({ name:"",email: "", pass: "" });
     const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+    const response = await fetch("http://10.80.63.66:5000/api/auth/createuser", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -24,6 +24,7 @@ const Signup = () => {
       //save the token on local storage and redirect
       localStorage.setItem("token", json.authtoken);
       navigate("/");
+      window.location.reload(true);
     } 
   };
 

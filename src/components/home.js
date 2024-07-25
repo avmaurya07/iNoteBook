@@ -7,10 +7,10 @@ const Home = () => {
   let navigate = useNavigate();
   const context = useContext(NoteContext);
   const { User} = context;
-  // useEffect(() => {
-  //   if (!User.name) {
-  //     navigate("/login");}
-  // },[]);
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");}
+  },[]);
   return (
     <>
       <NoteComp />

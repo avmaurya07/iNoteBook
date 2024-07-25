@@ -41,7 +41,7 @@ const AddNote = () => {
           <label htmlFor="description" className="form-label">
             Take a Note...
           </label>
-          <input
+          <textarea
             type="text"
             className="form-control"
             id="description"
@@ -50,6 +50,8 @@ const AddNote = () => {
             onChange={onChange}
             minLength={5}
             required
+            cols={40}
+            row={8}
             placeholder="Take a Note..."
           />
         </div>
@@ -61,9 +63,9 @@ const AddNote = () => {
         >
           Add Note
         </button>
-        <a className="btn btn-primary float-end" href="/" role="button">
+        {/* <a className="btn btn-primary float-end" href="/" role="button">
         View Notes  <i className="fa-solid fa-circle-arrow-right"></i>
-        </a>
+        </a> */}
       </form>
     </div>
   );

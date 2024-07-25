@@ -5,7 +5,7 @@ import NoteContext from "../contex/notes/notecontext";
 const Login = () => {
   const ref = useRef(null);
   const context = useContext(NoteContext);
-  const { getUserApi,showAlert } = context;
+  const { getUserApi, showAlert, getNotesApi } = context;
   const [ldata, setLdata] = useState({ email: "", pass: "" });
   let navigate = useNavigate();
   const onChange = (e) => {
@@ -16,7 +16,7 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    const response = await fetch("http://10.80.63.66:5000/api/auth/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,8 @@ const Login = () => {
       //save the token on local storage and redirect
       localStorage.setItem("token", json.authtoken);
       navigate("/");
-    } 
+      window.location.reload(true);
+    }
   };
   return (
     <>
