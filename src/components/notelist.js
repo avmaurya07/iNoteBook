@@ -4,12 +4,14 @@ import Noteitem from "./noteitem";
 
 const Notelist = () => {
   const context = useContext(NoteContext);
-  const { Notes, getNotesApi, editNote } = context;
+  const {User, Notes, getNotesApi, editNote } = context;
   const [note, setNote] = useState({ eid: "", etitle: "", edescription: "" });
-  useEffect(() => {
-    getNotesApi();
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   if(User.name){
+  //   getNotesApi();
+  //   }
+    
+  // })
 
   const updateNote = (cnote) => {
     ref.current.click();
@@ -119,7 +121,7 @@ const Notelist = () => {
         </div>
       </div>
 
-      {Notes.length !== 0 && (
+      {(Notes.length !== 0 || User.name ) && (
         <div className="row my-3">
           <h2>Your Notes</h2>
           {Notes.map((notes) => {

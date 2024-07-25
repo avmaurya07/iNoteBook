@@ -6,17 +6,20 @@ const Navbar = () => {
   const {User,getUserApi} = context;
   
 
-  useEffect(()=>{
-     getUserApi();
-  },[])
+  useEffect(() => {
+    getUserApi();
+  });
    
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        {User.name && (<a className="navbar-brand" href="/">
           iNoteBook
-        </a>
+        </a>)}
+        {!User.name && (<a className="navbar-brand" href="/login">
+          iNoteBook
+        </a>)}
         <button
           className="navbar-toggler"
           type="button"
@@ -31,9 +34,12 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
+            {User.name && (
               <a className="nav-link active" aria-current="page" href="/">
-                Home
-              </a>
+              Home
+            </a>
+      )}
+              
             </li>
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="/about">
@@ -41,8 +47,10 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
+          {User.name && (
           <h6 className="mx-2">Hello, {User.name} </h6>
-          <form className="d-flex" role="search">
+          )}
+          {User.name && (<form className="d-flex" role="search">
             
             <input
               className="form-control me-2"
@@ -53,7 +61,12 @@ const Navbar = () => {
             <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-          </form>
+          </form>)}
+          
+          {!User.name &&  (
+            <a className="btn btn-primary mx-2" href="/login" role="button">Login</a>)}
+            {!User.name &&  (
+          <a className="btn btn-primary mx-2" href="/" role="button">SignUp</a>)}
         </div>
       </div>
     </nav>

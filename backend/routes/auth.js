@@ -6,6 +6,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const JWT_SECRET = "Harryisagoodboy"; //auth token secret
+let success =false
 
 //ROUTE 1:create a user /api/auth/createuser
 router.post(
@@ -20,13 +21,14 @@ router.post(
     //if error in filling the data it will return the bad request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      
+      return res.status(400).json({success:success, msg: errors.array() });
     }
     //to check unique user
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
-        return res.status(400).json({ error: "User already exist" });
+        return res.status(400).json({success:success, msg: "User already exist" });
       }
       //salting
       const salt = "$2a$10$4OivDm0lB1d0PB0OybGza7";
@@ -48,10 +50,9 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
 
     
-      res.json({ authtoken });
-      console.log("User Regestered Sucessfully");
+      res.json({ success:true,authtoken,msg:"Registered Successfully and Logined" });
     } catch (error) {
-      res.status(500).send("Internal server error ocurred");
+      res.status(500).json({success:success,msg:"Internal server error ocurred"});
     }
   }
 );
@@ -69,7 +70,7 @@ router.post(
     //if error in filling the data it will return the bad request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success:success,msg: errors.array() });
     }
     const { email, password } = req.body;
     try {
@@ -77,13 +78,13 @@ router.post(
       let user = await User.findOne({ email });
       //if user does not exist
       if (!user) {
-        return res.status(400).json({ error: "invalid email/password" });
+        return res.status(400).json({success:success, msg: "invalid email/password" });
       }
       //to compare entered password with the database
       const passwordCompare = await bcrypt.compare(password, user.password);
       //if password is wrong
       if (!passwordCompare) {
-        return res.status(400).json({ error: "invalid email/password" });
+        return res.status(400).json({success:success, msg: "invalid email/password" });
       }
       //for creating a auth token
       const data = {
@@ -94,9 +95,9 @@ router.post(
 
       const authtoken = jwt.sign(data, JWT_SECRET);
 
-      res.json({ authtoken });
+      res.json({ success:true,authtoken,msg:"Login Success" });
     } catch (error) {
-      res.status(500).send("Internal server error ocurred");
+      res.status(500).json({success:success,msg:"Internal server error ocurred"});
     }
   }
 );
@@ -113,7 +114,7 @@ router.post("/getuser", fetchuser, async (req, res) => {
       .select("-__v");
     res.send(user);
   } catch (error) {
-    res.status(500).send("Internal server error ocurred");
+    res.status(500).json({success:success,msg:"Internal server error ocurred"});
   }
 });
 module.exports = router;

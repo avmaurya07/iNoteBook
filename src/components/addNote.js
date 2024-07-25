@@ -61,9 +61,9 @@ const AddNote = () => {
         >
           Add Note
         </button>
-        <button className="btn btn-primary float-end" onclick="window.location.href='/about';">
-          View Notes  <i className="fa-solid fa-circle-arrow-right"></i>
-        </button>
+        <a className="btn btn-primary float-end" href="/" role="button">
+        View Notes  <i className="fa-solid fa-circle-arrow-right"></i>
+        </a>
       </form>
     </div>
   );
