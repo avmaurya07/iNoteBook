@@ -6,7 +6,7 @@ import Home from "./components/home";
 import About from "./components/about";
 import NotFound from "./components/notfound.js";
 import NoteState from "./contex/notes/notestate.js";
-// import Alert from "./components/alert.js";
+import Alert from "./components/alert.js";
 import Login from "./components/Login.js";
 import Signup from "./components/Signup.js";
 // import NoteContext from "./contex/notes/notecontext";
@@ -22,7 +22,7 @@ function App() {
     <>
       <NoteState>
         <Navbar />
-        {/* <Alert alert="hello"/> */}
+        <Alert />
         <div className="container">
           <Router>
             <Routes>

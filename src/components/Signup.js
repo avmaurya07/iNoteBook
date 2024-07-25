@@ -4,7 +4,7 @@ import NoteContext from "../contex/notes/notecontext";
 
 const Signup = () => {
     const context = useContext(NoteContext);
-    const { getUserApi } = context;
+    const { getUserApi,showAlert } = context;
     let navigate = useNavigate();
     const [sdata, setSdata] = useState({ name:"",email: "", pass: "" });
     const handleSubmit = async (e) => {
@@ -17,15 +17,14 @@ const Signup = () => {
       body: JSON.stringify({ name: sdata.name,email: sdata.email, password: sdata.pass }),
     });
     const json = await response.json();
+    showAlert(json);
     getUserApi();
     setSdata({name:"", email: "", pass: "" });
     if (json.success) {
       //save the token on local storage and redirect
       localStorage.setItem("token", json.authtoken);
       navigate("/");
-    } else {
-      alert(json.msg);
-    }
+    } 
   };
 
   const onChange = (e) => {
@@ -39,6 +38,7 @@ const Signup = () => {
         <form 
         onSubmit={handleSubmit}
         >
+          <h1>SignUp</h1>
           <div className="mb-3">
             <label html htmlFor="exampleInputEmail1" className="form-label">
               Name

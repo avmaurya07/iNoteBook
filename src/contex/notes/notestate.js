@@ -7,6 +7,17 @@ const auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZhMTBhZ
 const NoteState = (props) => {
   const [Notes, setNotes] = useState([]);
   const [User, setUser] = useState([{name:"",email:""}]);
+  const [alert,setAlert]=useState([{success:true,msg:""}]);
+
+  const showAlert=(json)=>{
+    setAlert({
+      success:json.success,
+      msg:json.msg
+    })
+    setTimeout(() => {
+      setAlert({success:true,msg:""})
+    }, 2000);
+  }
 
   //api call to add note
   const addNotesApi = async (title, description, tag) => {
@@ -18,7 +29,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    return response.JSON;
+    return response.json();
   }; ///
 
   ///api call to edit note
@@ -31,7 +42,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    return response.JSON;
+    return response.json();
   }; ///
 
   ///api call to delete note
@@ -44,7 +55,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ id }),
     });
-    return response.JSON;
+    return response.json();
   }; ///
 
   ///api call to get all notes
@@ -75,10 +86,9 @@ const NoteState = (props) => {
   // add a note
   const addNote = async (title, description, tag) => {
     //api call
-    // eslint-disable-next-line
     const json = await addNotesApi(title, description, tag);
     await getNotesApi();
-    // console.log(json)
+    showAlert(json);
   };
 
   //delete a note
@@ -87,6 +97,7 @@ const NoteState = (props) => {
     // eslint-disable-next-line
     const json = await delNoteApi(id);
     await getNotesApi();
+    showAlert(json);
   };
   //edit a note
   const editNote = async (id, title, description, tag) => {
@@ -94,6 +105,7 @@ const NoteState = (props) => {
     // eslint-disable-next-line
     const json = await editNoteApi(id, title, description, tag);
     await getNotesApi();
+    showAlert(json);
   };
 
   return (
@@ -106,6 +118,8 @@ const NoteState = (props) => {
         getNotesApi,
         getUserApi,
         User,
+        alert,
+        showAlert,
       }}
     >
       {props.children}

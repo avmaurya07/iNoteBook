@@ -12,7 +12,7 @@ router.get("/fetchallnotes", fetchuser, async (req, res) => {
     res.json(notes);
 
   } catch (error) {
-    res.status(500).send("Internal server error ocurred");
+    res.status(500).json({success:success,msg:"Internal server error ocurred"});
   }
 });
 
@@ -31,7 +31,7 @@ router.post(
       //if error in filling the data it will return the bad request
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success:success,msg: errors.array() });
       }
       const notes = new Notes({
         title,
@@ -41,9 +41,9 @@ router.post(
       });
       const savedNotes = await notes.save();
 
-      res.send("Note is saved");
+      res.json({success:true,msg:"Note is saved"});
     } catch (error) {
-      res.status(500).send("Internal server error ocurred");
+      res.status(500).json({success:success,msg:"Internal server error ocurred"});
     }
   }
 );
@@ -75,20 +75,20 @@ router.put(
       let notes = await Notes.findById(req.params.id);
        //checking the note exist or not
       if (!notes) {
-        return res.status(404).send("note not found");
+        return res.status(404).json({success:success,msg:"note not found"});
       }
       //checking user is authorized or not
       if (notes.user.toString() !== req.user.id) {
-        return res.status(401).send("unathorized access");
+        return res.status(401).json({success:success,msg:"unathorized access"});
       }
       notes = await Notes.findByIdAndUpdate(
         req.params.id,
         { $set: newNote },
         { new: true }
       );
-      res.send("Note updated succesfully");
+      res.json({success:true,msg:"Note updated succesfully"});
     } catch (error) {
-      res.status(500).send("Internal server error ocurred");
+      res.status(500).json({success:success,msg:"Internal server error ocurred"});
       console.log(error);
     }
   }
@@ -103,16 +103,16 @@ router.delete("/deletenote/:id", fetchuser, async (req, res) => {
     let notes = await Notes.findById(req.params.id);
     //checking the note exist or not
     if (!notes) {
-      return res.status(404).send("note not found");
+      return res.status(404).json({success:success,msg:"note not found"});
     }
     //checking user is authorized or not
     if (notes.user.toString() !== req.user.id) {
-      return res.status(401).send("unathorized access");
+      return res.status(401).json({success:success,msg:"unathorized access"});
     }
     notes = await Notes.findByIdAndDelete(req.params.id,);
-    res.send("Note deleted succesfully");
+    res.json({success:true,msg:"Note deleted succesfully"});
   } catch (error) {
-    res.status(500).send("Internal server error ocurred");
+    res.status(500).json({success:success,msg:"Internal server error ocurred"});
     console.log(error);
   }
 });

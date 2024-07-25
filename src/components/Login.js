@@ -5,7 +5,7 @@ import NoteContext from "../contex/notes/notecontext";
 const Login = () => {
   const ref = useRef(null);
   const context = useContext(NoteContext);
-  const { getUserApi } = context;
+  const { getUserApi,showAlert } = context;
   const [ldata, setLdata] = useState({ email: "", pass: "" });
   let navigate = useNavigate();
   const onChange = (e) => {
@@ -24,20 +24,20 @@ const Login = () => {
       body: JSON.stringify({ email: ldata.email, password: ldata.pass }),
     });
     const json = await response.json();
+    showAlert(json);
     getUserApi();
     setLdata({ email: "", pass: "" });
     if (json.success) {
       //save the token on local storage and redirect
       localStorage.setItem("token", json.authtoken);
       navigate("/");
-    } else {
-      alert(json.msg);
-    }
+    } 
   };
   return (
     <>
       <div className="container">
         <form onSubmit={handleSubmit}>
+          <h1>Login</h1>
           <div className="mb-3">
             <label html htmlFor="exampleInputEmail1" className="form-label">
               Email address
