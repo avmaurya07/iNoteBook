@@ -2,10 +2,11 @@ const connectToMongo = require("./db.js");
 const express = require("express");
 const cors = require('cors')
 const app = express();
+require('dotenv').config();
 app.use(cors());
 app.use(express.json())
 connectToMongo();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 //Available routes yani ki apis
 app.use("/api/auth", require("./routes/auth"));
