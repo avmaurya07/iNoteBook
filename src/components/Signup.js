@@ -1,6 +1,8 @@
 import React,{useState,useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import NoteContext from "../contex/notes/notecontext";
+import config from "../config";
+const host = config.host;
 
 const Signup = () => {
     const context = useContext(NoteContext);
@@ -9,7 +11,7 @@ const Signup = () => {
     const [sdata, setSdata] = useState({ name:"",email: "", pass: "" });
     const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+    const response = await fetch(`${host}/api/auth/createuser`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

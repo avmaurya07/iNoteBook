@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NoteContext from "./notecontext";
-// const config = require("../../config");
-const host = "http://localhost:5000";
+import config from "../../config";
+const host = config.host;
 const auth = localStorage.getItem("token");
 const NoteState = (props) => {
   const [Notes, setNotes] = useState([]);
