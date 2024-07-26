@@ -14,7 +14,7 @@ const Login = () => {
     setLdata({ ...ldata, [e.target.name]: e.target.value });
   };
   const onSignUp = () => {
-    ref.current.click();
+    navigate("/signup");
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,10 +69,16 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary mx-2"
             disabled={ldata.email.length < 5 || ldata.pass.length < 5}
           >
             Login
+          </button>
+          <button
+            className="btn btn-primary mx-2"
+            onClick={onSignUp}
+          >
+            SignUp
           </button>
         </form>
         <div class="form-check">
