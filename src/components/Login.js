@@ -7,7 +7,7 @@ const host = config.host;
 const Login = () => {
   const ref = useRef(null);
   const context = useContext(NoteContext);
-  const { getUserApi, showAlert, getNotesApi } = context;
+  const { getUserApi, showAlert } = context;
   const [ldata, setLdata] = useState({ email: "", pass: "" });
   let navigate = useNavigate();
   const onChange = (e) => {
@@ -51,7 +51,7 @@ const Login = () => {
               id="email"
               name="email"
               onChange={onChange}
-              value={ldata.email}
+              value={ldata.systemid}
             />
           </div>
           <div className="mb-3">
@@ -64,7 +64,7 @@ const Login = () => {
               id="pass"
               name="pass"
               onChange={onChange}
-              value={ldata.pass}
+              value={ldata.password}
             />
           </div>
           <button
